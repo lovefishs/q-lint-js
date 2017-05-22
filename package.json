@@ -11,7 +11,7 @@
     "url": "git@192.168.1.121:ui-module/q-lint-js.git"
   },
   "keywords": [
-    "eslint",
+    "eslint"
   ],
   "author": "changming.huang@woqutech.com",
   "license": "MIT",
