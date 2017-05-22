@@ -1,0 +1,19 @@
+{
+  "name": "q-lint-js",
+  "version": "0.0.1",
+  "description": "q-lint-js",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@192.168.1.121:ui-module/q-lint-js.git"
+  },
+  "keywords": [
+    "eslint",
+  ],
+  "author": "changming.huang@woqutech.com",
+  "license": "MIT",
+  "devDependencies": {}
+}
