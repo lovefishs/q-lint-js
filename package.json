@@ -3,6 +3,9 @@
   "version": "1.0.1",
   "description": "q-lint-js",
   "bin": "./bin/cmd.js",
+  "bugs": {
+    "url": "https://github.com/feross/standard/issues"
+  },
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -19,6 +22,7 @@
   "engines": {
     "node": ">=6"
   },
+  "homepage": "http://192.168.1.121/ui-module/q-lint-js",
   "devDependencies": {},
   "dependencies": {
     "eslint": "4.1.0",
