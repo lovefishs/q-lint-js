@@ -1871,11 +1871,24 @@ $ yarn add eslint eslint-plugin-react --dev
   <Hello name="John" />
   ```
 
-* **强制在 JSX 中结束符前(`/>`)添加空格**。
+* **规定 JSX 语法 `<` `>` 符号前的空格**。
 
-  eslint-plugin-react: [`jsx-space-before-closing`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-space-before-closing.md)
+  eslint-plugin-react: [`jsx-tag-spacing`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-tag-spacing.md)
 
   ```js
+  // closingSlash: "never"
+  // ✗ avoid
+  <App/ >
+  <input/
+  >
+  <Provider>< /Provider>
+
+  // ✓ ok
+  <App/>
+  <input/>
+  <Provider></Provider>
+
+  // beforeSelfClosing: "always"
   // ✗ avoid
   <Hello/>
   <Hello firstname="John"/>
@@ -1883,6 +1896,24 @@ $ yarn add eslint eslint-plugin-react --dev
   // ✓ ok
   <Hello />
   <Hello firstName="John" />
+  <Hello
+    firstName="John"
+    lastName="Smith"
+  />
+
+  // afterOpening: "never"
+  // ✗ avoid
+  < Hello></ Hello>
+  < Hello firstName="John"/>
+  <
+    Hello
+    firstName="John"
+    lastName="Smith"
+  />
+
+  // ✓ ok
+  <Hello></Hello>
+  <Hello firstname="John"/>
   <Hello
     firstName="John"
     lastName="Smith"

@@ -7,7 +7,7 @@ module.exports = {
   cmd: 'q-lint-js',
   eslint: eslint,
   eslintConfig: {
-    configFile: resolve(__dirname, './eslintrc.js'),
+    configFile: resolve(__dirname, './eslintrc.json'),
   },
   homepage: pkg.homepage,
   tagline: 'Use JavaScript Q Style',
