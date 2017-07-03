@@ -7,12 +7,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "homepage": "http://192.168.1.121/front-end/styleguide/blob/master/JavaScript.md",
   "repository": {
     "type": "git",
-    "url": "git@192.168.1.121:ui-module/q-lint-js.git"
-  },
-  "bugs": {
     "url": "git@192.168.1.121:ui-module/q-lint-js.git"
   },
   "keywords": [
