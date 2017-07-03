@@ -2,12 +2,17 @@
   "name": "q-lint-js",
   "version": "0.0.1",
   "description": "q-lint-js",
-  "main": "lib/index.js",
+  "bin": "./bin/cmd.js",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "homepage": "http://192.168.1.121/front-end/styleguide/blob/master/JavaScript.md",
   "repository": {
     "type": "git",
+    "url": "git@192.168.1.121:ui-module/q-lint-js.git"
+  },
+  "bugs": {
     "url": "git@192.168.1.121:ui-module/q-lint-js.git"
   },
   "keywords": [
@@ -15,5 +20,13 @@
   ],
   "author": "changming.huang@woqutech.com",
   "license": "MIT",
-  "devDependencies": {}
+  "engines": {
+    "node": ">=6"
+  },
+  "devDependencies": {},
+  "dependencies": {
+    "eslint": "4.1.0",
+    "eslint-plugin-react": "7.1.0",
+    "standard-engine": "7.1.0"
+  }
 }
