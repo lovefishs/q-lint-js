@@ -25,10 +25,37 @@ $ yarn add eslint eslint-plugin-react --dev
   eslint: [`indent`](http://eslint.cn/docs/rules/indent)
 
   ```js
+  // ✗ avoid
+  function hello (name) {
+      console.log('hi', name)
+  }
+
+  fetch('xxx', {
+    body: JSON.stringify(data),
+  })
+  .then(res => res.json())
+  .then(json => {
+    // ...
+  })
+  .catch(error => {
+    console.log(error)
+  })
+
   // ✓ ok
   function hello (name) {
     console.log('hi', name)
   }
+
+  fetch('xxx', {
+    body: JSON.stringify(data),
+  })
+    .then(res => res.json())
+    .then(json => {
+      // ...
+    })
+    .catch(error => {
+      console.log(error)
+    })
   ```
 
 * 除需要转义的情况外，**字符串统一使用单引号**。
@@ -1936,20 +1963,3 @@ $ yarn add eslint eslint-plugin-react --dev
   const Profile = <Hello name="John"><img src="picture.png" /></Hello>
   const HelloSpace = <Hello>{' '}</Hello>
   ```
-
-**注意:** `eslint@4.0.0-alpha.1` 在下面配置中会对 `indent` 误报:
-
-```js
-// eslintrc.js
-'rules': {
-  'indent': ['error', 2],
-  'react/jsx-indent': ['error', 2],
-},
-
-// 误报代码
-          {comments.map(item => {
-            return <li key={item.id} className="list-group-item">{item.author}: {item.comment}</li>
-          })}
-```
-
-把 `eslint` 降级到 `3.x` 版本，误报的问题得到解决。此问题后续在 `eslint` v4 版本稳定之后，予以排查解决。
