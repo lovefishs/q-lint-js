@@ -25,6 +25,7 @@
   "homepage": "http://192.168.1.121/ui-module/q-lint-js",
   "devDependencies": {},
   "dependencies": {
+    "babel-eslint": "7.2.3",
     "eslint": "4.1.0",
     "eslint-plugin-react": "7.1.0",
     "standard-engine": "7.1.0"

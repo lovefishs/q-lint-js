@@ -13,11 +13,7 @@ npm install q-lint-js --save-dev
 ## Usage
 
 ```bash
-q-lint-js
+q-lint-js src/**/*.js src/**/*.jsx
 Error: Use JavaScript Q Style
-  lib/torrent.js:950:11: Expected '===' and instead saw '=='.
-```
-
-```bash
-$ q-lint-js "src/util/**/*.js" "test/**/*.js"
+  src/index.js:20:11: Expected '===' and instead saw '=='.
 ```

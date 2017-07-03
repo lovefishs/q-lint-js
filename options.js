@@ -4,12 +4,12 @@ const pkg = require('./package.json')
 
 module.exports = {
   bugs: pkg.bugs.url,
+  homepage: pkg.homepage,
+  version: pkg.version,
+  tagline: 'Use JavaScript Q Style',
   cmd: 'q-lint-js',
   eslint: eslint,
   eslintConfig: {
     configFile: resolve(__dirname, './eslintrc.json'),
   },
-  homepage: pkg.homepage,
-  tagline: 'Use JavaScript Q Style',
-  version: pkg.version,
 }
