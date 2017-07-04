@@ -652,7 +652,7 @@ npm install q-lint-js --save-dev
   }
   ```
 
-* **禁止在象字面量中定义重复的属性名(key)**。
+* **禁止在对象字面量中定义重复的属性名(key)**。
 
   eslint: [`no-dupe-keys`](http://eslint.cn/docs/rules/no-dupe-keys)
 
