@@ -2,7 +2,7 @@
 
 沃趣前端 JavaScript 代码规范检查工具
 
-具体细节查看 [http://192.168.1.121/front-end/styleguide/blob/master/JavaScript.md](http://192.168.1.121/front-end/styleguide/blob/master/JavaScript.md)
+具体细节查看 [JavaScript.md](/RULES.md)
 
 ## Install
 
