@@ -1,6 +1,6 @@
 {
   "name": "q-lint-js",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "Use JavaScript Q Style",
   "bin": "./bin/cmd.js",
   "bugs": {
@@ -27,8 +27,8 @@
   "homepage": "https://github.com/lovefishs/q-lint-js",
   "dependencies": {
     "babel-eslint": "7.2.3",
-    "eslint": "4.2.0",
-    "eslint-plugin-react": "7.1.0",
+    "eslint": "4.5.0",
+    "eslint-plugin-react": "7.3.0",
     "standard-engine": "7.1.0"
   }
 }
