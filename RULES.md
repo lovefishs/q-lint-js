@@ -53,7 +53,7 @@ npm install q-lint-js --save-dev
     })
   ```
 
-* 除需要转义的情况外，**字符串统一使用单引号**。
+* 除需要转义的情况外，**字符串统一使用单引号**(支持模板字符串的反引号)。
 
   eslint: [`quotes`](http://eslint.cn/docs/rules/quotes)
 
@@ -247,6 +247,11 @@ npm install q-lint-js --save-dev
   
   if (someCondition
     || otherCondition) {
+  }
+
+  // jsx
+  {isShow &&
+    <div>show</div>
   }
   ```
 
