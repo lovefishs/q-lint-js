@@ -26,7 +26,7 @@
   "rules": {
     "strict": 0,
     "indent": ["error", 2],
-    "quotes": ["error", "single"],
+    "quotes": ["error", "single", { "allowTemplateLiterals": true }],
     "no-unused-vars": ["error"],
     "keyword-spacing": ["error"],
     "space-before-function-paren": ["error"],
@@ -37,7 +37,7 @@
     "handle-callback-err": ["error", "err"],
     "no-undef": ["error", { "typeof": true }],
     "no-multiple-empty-lines": ["error", { "max": 2 }],
-    "operator-linebreak": ["error", "before"],
+    "operator-linebreak": ["error", "before", { "overrides": { "?": "ignore", ":": "ignore", "&&": "ignore", "||": "ignore" } }],
     "one-var": ["error", { "var": "never", "let": "never", "const": "never" }],
     "no-cond-assign": ["error", "except-parens"],
     "block-spacing": ["error"],
