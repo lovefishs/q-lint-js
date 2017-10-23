@@ -51,6 +51,14 @@ npm install q-lint-js --save-dev
     .catch(error => {
       console.log(error)
     })
+
+  switch (x) {
+    case 1:
+      console.log(x)
+      break
+    default:
+      console.log('other')
+  }
   ```
 
 * 除需要转义的情况外，**字符串统一使用单引号**(支持模板字符串的反引号)。
