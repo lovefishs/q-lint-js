@@ -32,7 +32,7 @@
     "space-before-function-paren": ["error"],
     "eqeqeq": ["error"],
     "space-infix-ops": ["error"],
-    "brace-style": ["error"],
+    "brace-style": ["error", "1tbs", { "allowSingleLine": true }],
     "curly": ["error", "multi-line"],
     "handle-callback-err": ["error", "err"],
     "no-undef": ["error", { "typeof": true }],
