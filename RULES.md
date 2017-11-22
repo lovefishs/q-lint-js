@@ -316,11 +316,11 @@ npm install q-lint-js --save-dev
 
   ```js
   // ✗ avoid
-  var myVar = 'hello'
+  var my_var = 'hello'
   function my_function () { }
 
   // ✓ ok
-  var my_var = 'hello'
+  var myVar = 'hello'
   var obj = {
     my_pref: 1,
   }
@@ -351,42 +351,49 @@ npm install q-lint-js --save-dev
     foo: 'foo'
     ,bar: 'bar'
   }
+  var foo = ['apples'
+           , 'oranges']
 
   // ✓ ok
   var obj = {
     foo: 'foo',
     bar: 'bar',
   }
+  var foo = ['apples',
+           'oranges']
   ```
 
-* **当最后一个元素或属性与闭括号 `]` 或 `}` 在 不同的行时，要求使用拖尾逗号；当在 同一行时，禁止使用拖尾逗号**。
+* **当最后一个元素或属性与闭括号 `]` 或 `}` 在 不同的行时，允许（但不要求）使用拖尾逗号；当在 同一行时，禁止使用拖尾逗号**。
 
   eslint: [`comma-dangle`](http://eslint.cn/docs/rules/comma-dangle)
 
   ```js
   // ✗ avoid
-  var obj = {
-    message: 'hello',
-    text: 'world'
-  }
   var foo = { bar: 'baz', qux: 'quux', }
-  var arr = [1, 2,]
-  var str = [
-    'a',
-    'b'
-  ]
+  var arr = [1,2,]
+  var arr = [1,
+    2,]
 
   // ✓ ok
-  var obj = {
-    message: 'hello',
-    text: 'world',
+  var foo = {
+    bar: 'baz',
+    qux: 'quux',
+  }
+  var foo = {
+    bar: 'baz',
+    qux: 'quux'
   }
   var foo = { bar: 'baz', qux: 'quux' }
   var arr = [1, 2]
-  var str = [
-    'a',
-    'b',
-  ]
+  foo({
+    bar: 'baz',
+    qux: 'quux',
+  })
+
+  foo({
+    bar: 'baz',
+    qux: 'quux'
+  })
   ```
 
 * **点号操作符须与属性需在同一行(强制在 `.` 号之前换行)**。

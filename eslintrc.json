@@ -44,7 +44,7 @@
     "camelcase": ["error", { "properties": "never" }],
     "comma-spacing": ["error"],
     "comma-style": ["error", "last"],
-    "comma-dangle": ["error", "always-multiline"],
+    "comma-dangle": ["error", "only-multiline"],
     "dot-location": ["error", "property"],
     "eol-last": ["error"],
     "func-call-spacing": ["error"],
