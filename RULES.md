@@ -1524,6 +1524,42 @@ npm install q-lint-js --save-dev
   with (val) {...}
   ```
 
+* **禁止使用 `alert`, `prompt`, `confirm`**。
+
+  eslint: [`no-alert`](https://eslint.org/docs/rules/no-alert)
+
+  ```js
+  // ✗ avoid
+  alert("here!")
+  confirm("Are you sure?")
+  prompt("What's your name?", "John Doe")
+
+  // ✓ ok
+  customAlert("Something happened!")
+  customConfirm("Are you sure?")
+  customPrompt("Who are you?")
+
+  function foo() {
+    var alert = myCustomLib.customAlert
+    alert()
+  }
+  ```
+
+* **禁止使用 `console`**。
+
+  eslint: [`no-console`](https://eslint.org/docs/rules/no-console)
+
+  ```js
+  // ✗ avoid
+  console.log("Log a debug level message.")
+  console.warn("Log a warn level message.")
+  console.error("Log an error level message.")
+
+  // ✓ ok
+  // custom console
+  Console.log("Hello world!")
+  ```
+
 * **对象属性换行时注意统一代码风格**。
 
   eslint: [`object-property-newline`](http://eslint.cn/docs/rules/object-property-newline)
