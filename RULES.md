@@ -2014,3 +2014,802 @@ npm install q-lint-js --save-dev
   const Profile = <Hello name="John"><img src="picture.png" /></Hello>
   const HelloSpace = <Hello>{' '}</Hello>
   ```
+
+* **禁止在 JSX 组件中使用`bind`语法**。<br/>
+  例外: 排除 ref 属性。
+
+  eslint-plugin-react: [`jsx-no-bind`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-no-bind.md)
+
+  ```js
+  // ✗ avoid
+  <div onClick={this._handleClick.bind(this)}></div>
+  <div onClick={() => console.log('Hello!')}></div>
+
+  // ✓ ok
+  <div onClick={this._handleClick}></div>
+  <div ref={c => this._div = c} />
+  <div ref={this._refCallback.bind(this)} />
+  ```
+
+* **要求一致性的布尔属性命名规则**。
+
+  eslint-plugin-react: [`boolean-prop-naming`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/boolean-prop-naming.md)
+
+  正则表达式: `^(is|has)[A-Z]([A-Za-z0-9]?)+`
+
+  ```js
+  // ✗ avoid
+  var Hello = createReactClass({
+    propTypes: {
+      enabled: PropTypes.bool,
+      condition: PropTypes.bool,
+    },
+    render: function() { return <div /> }
+  })
+
+  // ✓ ok
+  var Hello = createReactClass({
+    propTypes: {
+      isEnabled: PropTypes.bool,
+      hasCondition: PropTypes.bool,
+    },
+    render: function() { return <div /> }
+  })
+  ```
+
+* **禁止 `button` 元素没有明确的 `type` 属性**。
+
+  eslint-plugin-react: [`button-has-type`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/button-has-type.md)
+
+  ```js
+  // ✗ avoid
+  var Hello = <button>Hello</button>
+  var Hello = <button type="foo">Hello</button>
+  var Hello = React.createElement('button', {}, 'Hello')
+  var Hello = React.createElement('button', {type: 'foo'}, 'Hello')
+
+  // ✓ ok
+  var Hello = <span>Hello</span>
+  var Hello = <span type="foo">Hello</span>
+  var Hello = <button type="button">Hello</button>
+  var Hello = <button type="submit">Hello</button>
+  var Hello = <button type="reset">Hello</button>
+  var Hello = React.createElement('span', {}, 'Hello')
+  var Hello = React.createElement('span', {type: 'foo'}, 'Hello')
+  var Hello = React.createElement('button', {type: 'button'}, 'Hello')
+  var Hello = React.createElement('button', {type: 'submit'}, 'Hello')
+  var Hello = React.createElement('button', {type: 'reset'}, 'Hello')
+  ```
+
+* **对 `props`, `state`, `context` 始终使用结构方式取值**。
+
+  eslint-plugin-react: [`destructuring-assignment`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/destructuring-assignment.md)
+
+  ```js
+  // ✗ avoid
+  const MyComponent = (props) => {
+    return (<div id={props.id} />)
+  }
+  const Foo = class extends React.PureComponent {
+    render() {
+      return <div>{this.context.foo}</div>
+    }
+  }
+
+  // ✓ ok
+  const MyComponent = (props) => {
+    const { id } = props
+    return (<div id={id} />)
+  }
+  const MyComponent = ({ id }) => {
+    return (<div id={id} />)
+  }
+  const Foo = class extends React.PureComponent {
+    render() {
+      const { title } = this.state
+      return <div>{title}</div>
+    }
+  }
+  const Foo = class extends React.PureComponent {
+    const { foo } = this.context
+    render() {
+      return <div>{foo}</div>
+    }
+  }
+  ```
+
+* **禁止在 `setState` 方法中引用 `this.state`**。
+
+  eslint-plugin-react: [`no-access-state-in-setstate`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-access-state-in-setstate.md)
+
+  ```js
+  // ✗ avoid
+  function increment() {
+    this.setState({value: this.state.value + 1})
+  }
+
+  // ✓ ok
+  function increment() {
+    this.setState(prevState => ({value: prevState.value + 1}))
+  }
+  ```
+
+* **禁止使用数组的 `index` 作为元素的 `key` 属性值**。
+
+  eslint-plugin-react: [`no-array-index-key`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-array-index-key.md)
+
+  ```js
+  // ✗ avoid
+  things.map((thing, index) => (
+    <Hello key={index} />
+  ))
+  things.map((thing, index) => (
+    React.cloneElement(thing, { key: index })
+  ))
+
+  // ✓ ok
+  things.map((thing) => (
+    <Hello key={thing.id} />
+  ))
+  things.map((thing) => (
+    React.cloneElement(thing, { key: thing.id })
+  ))
+  ```
+
+* **禁止使用 `children` 作为组件的属性名**。
+
+  eslint-plugin-react: [`no-children-prop`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-children-prop.md)
+
+  ```js
+  // ✗ avoid
+  <div children='Children' />
+  <MyComponent children={<AnotherComponent />} />
+  <MyComponent children={['Child 1', 'Child 2']} />
+  React.createElement("div", { children: 'Children' })
+
+  // ✓ ok
+  <div>Children</div>
+  <MyComponent>Children</MyComponent>
+  <MyComponent>
+    <span>Child 1</span>
+    <span>Child 2</span>
+  </MyComponent>
+  React.createElement("div", {}, 'Children')
+  React.createElement("div", 'Child 1', 'Child 2')
+  ```
+
+* **对 `dangerouslySetInnerHTML` 的使用发出警告**。
+
+  eslint-plugin-react: [`no-danger`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-danger.md)
+
+  see: [https://reactjs.org/docs/dom-elements.html#dangerouslysetinnerhtml](https://reactjs.org/docs/dom-elements.html#dangerouslysetinnerhtml)
+
+  ```js
+  // ✗ warning
+  var Hello = <div dangerouslySetInnerHTML={{ __html: "Hello World" }}></div>
+
+  // ✓ ok
+  var Hello = <div>Hello World</div>
+  ```
+
+* **禁止 `dangerouslySetInnerHTML` 与 `children` 同时存在**。
+
+  eslint-plugin-react: [`no-danger-with-children`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-danger-with-children.md)
+
+  ```js
+  // ✗ avoid
+  <div dangerouslySetInnerHTML={{ __html: "HTML" }}>
+    Children
+  </div>
+  <Hello dangerouslySetInnerHTML={{ __html: "HTML" }}>
+    Children
+  </Hello>
+  React.createElement("div", { dangerouslySetInnerHTML: { __html: "HTML" } }, "Children")
+  React.createElement("Hello", { dangerouslySetInnerHTML: { __html: "HTML" } }, "Children")
+
+  // ✓ ok
+  <div dangerouslySetInnerHTML={{ __html: "HTML" }} />
+  <Hello dangerouslySetInnerHTML={{ __html: "HTML" }} />
+  <div>Children</div>
+  <Hello>Children</Hello>
+  React.createElement("div", { dangerouslySetInnerHTML: { __html: "HTML" } })
+  React.createElement("Hello", { dangerouslySetInnerHTML: { __html: "HTML" } })
+  React.createElement("div", {}, "Children")
+  React.createElement("Hello", {}, "Children")
+  ```
+
+* **禁止在 `componentDidUpdate` 周期内更新 `state`**。
+
+  eslint-plugin-react: [`no-did-update-set-state`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-did-update-set-state.md)
+
+  ```js
+  // ✗ avoid
+  var Hello = createReactClass({
+    componentDidUpdate: function() {
+       this.setState({
+          name: this.props.name.toUpperCase()
+        })
+      },
+    render: function() {
+      return <div>Hello {this.state.name}</div>
+    }
+  })
+
+  // ✓ ok
+  // 在别的周期内更新 state, 或者在回调函数中调用更新
+  var Hello = createReactClass({
+    componentDidUpdate: function() {
+      this.onUpdate(function callback(newName) {
+        this.setState({
+          name: newName
+        })
+      })
+    },
+    render: function() {
+      return <div>Hello {this.props.name}</div>
+    }
+  })
+  ```
+
+* **禁止对 `state` 直接赋值**。<br/>
+  例外: 排除 ES6 中的 constructor 方法。
+
+  eslint-plugin-react: [`no-direct-mutation-state`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-direct-mutation-state.md)
+
+  ```js
+  // ✗ avoid
+  var Hello = createReactClass({
+    componentDidMount: function() {
+      this.state.name = this.props.name.toUpperCase()
+    },
+    render: function() {
+      return <div>Hello {this.state.name}</div>
+    }
+  })
+  class Hello extends React.Component {
+    constructor(props) {
+      super(props)
+
+      // Assign at instance creation time, not on a callback
+      doSomethingAsync(() => {
+        this.state = 'bad'
+      })
+    }
+  }
+
+  // ✓ ok
+  var Hello = createReactClass({
+    componentDidMount: function() {
+      this.setState({
+        name: this.props.name.toUpperCase(),
+      })
+    },
+    render: function() {
+      return <div>Hello {this.state.name}</div>
+    }
+  })
+  class Hello extends React.Component {
+    constructor(props) {
+      super(props)
+
+      this.state = { foo: 'bad' }
+    }
+  }
+  ```
+
+* **对 `findDOMNode` 方法的使用发出警告**。
+
+  eslint-plugin-react: [`no-find-dom-node`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-find-dom-node.md)
+
+  see: [https://reactjs.org/docs/react-dom.html#finddomnode](https://reactjs.org/docs/react-dom.html#finddomnode)
+
+  ```js
+  // ✗ warning
+  class MyComponent extends Component {
+    componentDidMount() {
+      findDOMNode(this).scrollIntoView()
+    }
+    render() {
+      return <div />
+    }
+  }
+
+  // ✓ ok
+  class MyComponent extends Component {
+    componentDidMount() {
+      this.node.scrollIntoView()
+    }
+    render() {
+      return <div ref={node => this.node = node} />
+    }
+  }
+  ```
+
+* **禁止使用 `isMounted` 方法**。
+
+  eslint-plugin-react: [`no-is-mounted`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-is-mounted.md)
+
+  see: [isMounted is an anti-pattern](https://reactjs.org/blog/2015/12/16/ismounted-antipattern.html)
+
+  ```js
+  // ✗ avoid
+  var Hello = createReactClass({
+    handleClick: function() {
+      setTimeout(function() {
+        if (this.isMounted()) {
+          return
+        }
+      })
+    },
+    render: function() {
+      return <div onClick={this.handleClick.bind(this)}>Hello</div>
+    }
+  })
+
+  // ✓ ok
+  var Hello = createReactClass({
+    render: function() {
+      return <div onClick={this.props.handleClick}>Hello</div>
+    }
+  })
+  ```
+
+* **禁止在单个文件中定义多个组件**。<br />
+  例外: 无状态功能组件(stateless functional component, SFC)除外。
+
+  eslint-plugin-react: [`no-multi-comp`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-multi-comp.md)
+
+  ```js
+  // ✗ avoid
+  var Hello = createReactClass({
+    render: function() {
+      return <div>Hello {this.props.name}</div>
+    }
+  })
+  var HelloJohn = createReactClass({
+    render: function() {
+      return <Hello name="John" />
+    }
+  })
+
+  // ✓ ok
+  var Hello = require('./components/Hello');
+
+  var HelloJohn = createReactClass({
+    render: function() {
+      return <Hello name="John" />
+    }
+  })
+
+  function Hello(props) {
+    return <div>Hello {props.name}</div>
+  }
+  function HelloAgain(props) {
+    return <div>Hello again {props.name}</div>
+  }
+
+  function Hello(props) {
+    return <div>Hello {props.name}</div>
+  }
+  class HelloJohn extends React.Component {
+    render() {
+      return <Hello name="John" />
+    }
+  }
+  module.exports = HelloJohn
+  ```
+
+* **禁止在 `PureComponent` 类型的组件中使用 `shouldComponentUpdate` 声明周期**。
+
+  eslint-plugin-react: [`no-redundant-should-component-update`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-redundant-should-component-update.md)
+
+  ```js
+  // ✗ avoid
+  class Foo extends React.PureComponent {
+    shouldComponentUpdate() {
+      // do check
+    }
+    render() {
+      return <div>Radical!</div>
+    }
+  }
+  function Bar() {
+    return class Baz extends React.PureComponent {
+      shouldComponentUpdate() {
+        // do check
+      }
+
+      render() {
+        return <div>Groovy!</div>
+      }
+    }
+  }
+
+  // ✓ ok
+  class Foo extends React.PureComponent {
+    render() {
+      return <div>Radical!</div>
+    }
+  }
+  function Bar() {
+    return class Baz extends React.PureComponent {
+      render() {
+        return <div>Groovy!</div>
+      }
+    }
+  }
+  class Foo extends React.Component {
+    shouldComponentUpdate() {
+      // do check
+    }
+    render() {
+      return <div>Radical!</div>
+    }
+  }
+  ```
+
+* **禁止对 `ref` 属性赋值字符串**。
+
+  eslint-plugin-react: [`no-string-refs`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-string-refs.md)
+
+  ```js
+  // ✗ avoid
+  const Hello = createReactClass({
+    componentDidMount: function() {
+      const component = this.refs.hello
+    },
+    render: function() {
+      return <div ref="hello">Hello, world.</div>
+    }
+  })
+
+  // ✓ ok
+  const Hello = createReactClass({
+    componentDidMount: function() {
+      const component = this.hello
+    },
+    render: function() {
+      return <div ref={(c) => { this.hello = c; }}>Hello, world.</div>
+    }
+  })
+  ```
+
+* **禁止在 stateless functional component(SFC, 无状态功能组件)中使用 `this` 引用**。
+
+  eslint-plugin-react: [`no-this-in-sfc`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-this-in-sfc.md)
+
+  ```js
+  // ✗ avoid
+  function Foo(props) {
+    return (
+      <div>{this.props.bar}</div>
+    )
+  }
+  function Foo(props, context) {
+    return (
+      <div>
+        {this.context.foo ? this.props.bar : ''}
+      </div>
+    )
+  }
+
+  // ✓ ok
+  function Foo(props) {
+    const { bar } = props
+    return (
+      <div>{bar}</div>
+    )
+  }
+  function Foo(props, context) {
+    const { foo } = context
+    const { bar } = props
+    return (
+      <div>
+        {foo ? bar : ''}
+      </div>
+    )
+  }
+  ```
+
+* **禁止未转义的实体字符出现在标记对中**。
+
+  eslint-plugin-react: [`no-unescaped-entities`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-unescaped-entities.md)
+
+  ```js
+  // ✗ avoid
+  <MyComponent
+    name="name"
+    type="string"
+    foo="bar">  {/* oops! */}
+    x="y">
+    Body Text
+  </MyComponent>
+  <MyComponent>{'Text'}}</MyComponent>
+  <div> > </div>
+
+  // ✓ ok
+  <div> &gt; </div>
+  <div> {'>'} </div>
+  ```
+
+* **禁止未知的 DOM 属性**。
+
+  eslint-plugin-react: [`no-unknown-property`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-unknown-property.md)
+
+  ```js
+  // ✗ avoid
+  var Hello = <div class="hello">Hello World</div>
+
+  // ✓ ok
+  var Hello = <div className="hello">Hello World</div>
+  ```
+
+* **禁止出现已经定义但未使用的 `prop`**。
+
+  eslint-plugin-react: [`no-unused-prop-types`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-unused-prop-types.md)
+
+  ```js
+  // ✗ avoid
+  var Hello = createReactClass({
+    propTypes: {
+      name: PropTypes.string
+    },
+    render: function() {
+      return <div>Hello Bob</div>
+    }
+  })
+
+  // ✓ ok
+  var Hello = createReactClass({
+    propTypes: {
+      name: PropTypes.string
+    },
+    render: function() {
+      const { name } = this.props
+      return <div>Hello {name}</div>
+    }
+  })
+  ```
+
+* **禁止出现已经定义但未使用的 `state` 属性**。
+
+  eslint-plugin-react: [`no-unused-state`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-unused-state.md)
+
+  ```js
+  // ✗ avoid
+  class MyComponent extends React.Component {
+    state = { foo: 0 }
+    render() {
+      return <SomeComponent />
+    }
+  }
+
+  // ✓ ok
+  class MyComponent extends React.Component {
+    state = { foo: 0 }
+    render() {
+      const { foo } = this.state
+      return <SomeComponent foo={foo} />
+    }
+  }
+  ```
+
+* **要求使用 ES6 class 方式创建组件，禁止使用 `createReactClass` 方法创建**。
+
+  eslint-plugin-react: [`prefer-es6-class`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/prefer-es6-class.md)
+
+  ```js
+  // ✗ avoid
+  var Hello = createReactClass({
+    render: function() {
+      return <div>Hello {this.props.name}</div>
+    }
+  })
+
+  // ✓ ok
+  class Hello extends React.Component {
+    render() {
+      const { name } = this.props
+      return <div>Hello {name}</div>
+    }
+  }
+  ```
+
+* **要求定义明确的 prop types**。
+
+  eslint-plugin-react: [`prop-types`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/prop-types.md)
+
+  ```js
+  // ✗ avoid
+  class Hello extends React.Component {
+    render: function() {
+      return <div>Hello {this.props.name}</div>
+    }
+  })
+  class Hello extends React.Component {
+    static propTypes = {
+      firstname: PropTypes.string.isRequired
+    },
+    render: function() {
+      return <div>Hello {this.props.firstname} {this.props.lastname}</div>; // lastname type is not defined in propTypes
+    }
+  })
+  function Hello({ name }) {
+    return <div>Hello {name}</div>
+  }
+
+  // ✓ ok
+  class Hello extends React.Component {
+    static propTypes = {
+      name: PropTypes.string.isRequired,
+    }
+    render: function() {
+      return <div>Hello {this.props.name}</div>
+    }
+  })
+  class Hello extends React.Component {
+    static propTypes = {
+      firstname: PropTypes.string.isRequired,
+      lastname: PropTypes.string.isRequired,
+    },
+    render: function() {
+      return <div>Hello {this.props.firstname} {this.props.lastname}</div>; // lastname type is not defined in propTypes
+    }
+  })
+  function Hello({ name }) {
+    return <div>Hello {name}</div>
+  }
+  Hello.propTypes = {
+    name: PropTypes.string.isRequired,
+  }
+  ```
+
+* **要求明确的 default prop 值**。<br />
+  例外: 忽略 `isRequired` 标识属性。
+
+  eslint-plugin-react: [`require-default-props`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/require-default-props.md)
+
+  ```js
+  // ✗ avoid
+  function MyStatelessComponent({ foo, bar }) {
+    return <div>{foo}{bar}</div>
+  }
+  MyStatelessComponent.propTypes = {
+    foo: PropTypes.string.isRequired,
+    bar: PropTypes.string,
+  }
+
+  function MyStatelessComponent({ foo, bar }) {
+    return <div>{foo}{bar}</div>
+  }
+  MyStatelessComponent.propTypes = {
+    foo: PropTypes.string.isRequired,
+    bar: PropTypes.string,
+  }
+  MyStatelessComponent.defaultProps = {
+    foo: 'foo',
+    bar: 'bar',
+  }
+
+  // ✓ ok
+  function MyStatelessComponent({ foo, bar }) {
+    return <div>{foo}{bar}</div>
+  }
+  MyStatelessComponent.propTypes = {
+    foo: PropTypes.string.isRequired,
+    bar: PropTypes.string,
+  }
+  MyStatelessComponent.defaultProps = {
+    bar: 'some default',
+  }
+
+  function MyStatelessComponent({ foo, bar }) {
+    return <div>{foo}{bar}</div>
+  }
+  MyStatelessComponent.propTypes = {
+    foo: PropTypes.string.isRequired,
+    bar: PropTypes.string.isRequired,
+  }
+  ```
+
+* **禁止没有返回的 `render` 函数**。
+
+  eslint-plugin-react: [`require-render-return`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/require-render-return.md)
+
+  ```js
+  // ✗ avoid
+  class Hello extends React.Component {
+    render() {
+      <div>Hello</div>
+    }
+  }
+
+  // ✓ ok
+  class Hello extends React.Component {
+    render() {
+      return <div>Hello</div>
+    }
+  }
+  ```
+
+* **要求 `style` 属性的值必须为 `object` 类型**。
+
+  eslint-plugin-react: [`style-prop-object`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/style-prop-object.md)
+
+  ```js
+  // ✗ avoid
+  <div style="color: 'red'" />
+  <div style={true} />
+  <Hello style={true} />
+  const styles = true
+  <div style={styles} />
+
+  // ✓ ok
+  <div style={{ color: "red" }} />
+  <Hello style={{ color: "red" }} />
+  const styles = { color: "red" }
+  <div style={styles} />
+  ```
+
+* **禁止空白 DOM 元素使用 `children` 属性**。
+
+  eslint-plugin-react: [`void-dom-elements-no-children`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/void-dom-elements-no-children.md)
+
+  ```js
+  // ✗ avoid
+  <br>Children</br>
+  <br children='Children' />
+  <br dangerouslySetInnerHTML={{ __html: 'HTML' }} />
+  React.createElement('br', undefined, 'Children')
+  React.createElement('br', { children: 'Children' })
+  React.createElement('br', { dangerouslySetInnerHTML: { __html: 'HTML' } })
+
+  // ✓ ok
+  <div>Children</div>
+  <div children='Children' />
+  <div dangerouslySetInnerHTML={{ __html: 'HTML' }} />
+  React.createElement('div', undefined, 'Children')
+  React.createElement('div', { children: 'Children' })
+  React.createElement('div', { dangerouslySetInnerHTML: { __html: 'HTML' } })
+  ```
+
+* **要求一致性的多行 JSX 元素关闭标签与起始标签对齐**。
+
+  eslint-plugin-react: [`jsx-closing-bracket-location`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-closing-bracket-location.md)
+
+  ```js
+  // ✗ avoid
+  <Hello
+    lastName="Smith"
+    firstName="John" />
+  <Hello
+    lastName="Smith"
+    firstName="John"
+    />
+
+  // ✓ ok
+  <Hello lastName="Smith" firstName="John" />
+  <Hello
+    lastName="Smith"
+    firstName="John"
+  />
+  ```
+
+* **要求一致性的 JSX 元素关闭标签与起始标签对齐**。
+
+  eslint-plugin-react: [`jsx-closing-tag-location`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-closing-tag-location.md)
+
+  ```js
+  // ✗ avoid
+  <Hello>
+    marklar
+    </Hello>
+  <Hello>
+    marklar</Hello>
+
+  // ✓ ok
+  <Hello>
+    marklar
+  </Hello>
+  <Hello>marklar</Hello>
+  ```
