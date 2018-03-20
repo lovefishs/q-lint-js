@@ -2134,28 +2134,6 @@ npm install q-lint-js --save-dev
   }
   ```
 
-* **禁止使用数组的 `index` 作为元素的 `key` 属性值**。
-
-  eslint-plugin-react: [`no-array-index-key`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-array-index-key.md)
-
-  ```js
-  // ✗ avoid
-  things.map((thing, index) => (
-    <Hello key={index} />
-  ))
-  things.map((thing, index) => (
-    React.cloneElement(thing, { key: index })
-  ))
-
-  // ✓ ok
-  things.map((thing) => (
-    <Hello key={thing.id} />
-  ))
-  things.map((thing) => (
-    React.cloneElement(thing, { key: thing.id })
-  ))
-  ```
-
 * **禁止使用 `children` 作为组件的属性名**。
 
   eslint-plugin-react: [`no-children-prop`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-children-prop.md)
