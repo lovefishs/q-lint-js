@@ -2015,20 +2015,19 @@ npm install q-lint-js --save-dev
   const HelloSpace = <Hello>{' '}</Hello>
   ```
 
-* **禁止在 JSX 组件中使用`bind`语法**。<br/>
-  例外: 排除 ref 属性。
+* **禁止在 JSX 组件中使用普通函数语法**。<br/>
+  例外: 排除 ref 属性，箭头函数，bind 方法。
 
   eslint-plugin-react: [`jsx-no-bind`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-no-bind.md)
 
   ```js
   // ✗ avoid
-  <div onClick={this._handleClick.bind(this)}></div>
-  <div onClick={() => console.log('Hello!')}></div>
+  <div onClick={function () { alert('1234') }}></div>
 
   // ✓ ok
   <div onClick={this._handleClick}></div>
-  <div ref={c => this._div = c} />
-  <div ref={this._refCallback.bind(this)} />
+  <div onClick={() => { alert('1234') }}></div>
+  <div ref={c => (this._div = c)} />
   ```
 
 * **要求一致性的布尔属性命名规则**。

@@ -156,7 +156,7 @@
     "react/jsx-no-undef": ["error"],
     "react/jsx-tag-spacing": ["error", { "closingSlash": "never", "beforeSelfClosing": "always", "afterOpening": "never" }],
     "react/self-closing-comp": ["error", { "component": true, "html": false }],
-    "react/jsx-no-bind": ["error", { "ignoreRefs": true }],
+    "react/jsx-no-bind": ["error", { "ignoreRefs": true, "allowArrowFunctions": true, "allowBind": true, "allowFunctions": false }],
     "react/boolean-prop-naming": ["error", { "rule": "^(is|has)[A-Z]([A-Za-z0-9]?)+" }],
     "react/button-has-type": ["error", { "button": true, "submit": true, "reset": true }],
     "react/destructuring-assignment": ["error", "always"],
