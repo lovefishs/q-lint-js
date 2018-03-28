@@ -2015,19 +2015,19 @@ npm install q-lint-js --save-dev
   const HelloSpace = <Hello>{' '}</Hello>
   ```
 
-* **禁止在 JSX 组件中使用 `bind` 语法做 `this` 绑定**。<br/>
-  例外: 排除 ref 属性，箭头函数。
+* **对在 JSX 组件中使用 `bind` 语法做 `this` 绑定会报警告**。<br/>
+  例外: 排除 ref 属性。
 
   eslint-plugin-react: [`jsx-no-bind`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-no-bind.md)
 
   ```js
-  // ✗ avoid
-  <div onClick={function () { alert('1234') }}></div>
+  // ✗ warning
+  <div onClick={() => { alert('1234') }}></div>
   <div onClick={this._handleClick.bind(this)}></div>
+  <div onClick={function () { alert('1234') }}></div>
 
   // ✓ ok
   <div onClick={this._handleClick}></div>
-  <div onClick={() => { alert('1234') }}></div>
   <div ref={c => (this._div = c)} />
   ```
 
@@ -2593,12 +2593,12 @@ npm install q-lint-js --save-dev
   }
   ```
 
-* **要求定义明确的 prop types**。
+* **对未明确定义的 prop types 报警告**。
 
   eslint-plugin-react: [`prop-types`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/prop-types.md)
 
   ```js
-  // ✗ avoid
+  // ✗ warning
   class Hello extends React.Component {
     render: function() {
       return <div>Hello {this.props.name}</div>
@@ -2642,13 +2642,13 @@ npm install q-lint-js --save-dev
   }
   ```
 
-* **要求明确的 default prop 值**。<br />
+* **对没有明确的 default prop 值报警告**。<br />
   例外: 忽略 `isRequired` 标识属性。
 
   eslint-plugin-react: [`require-default-props`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/require-default-props.md)
 
   ```js
-  // ✗ avoid
+  // ✗ warning
   function MyStatelessComponent({ foo, bar }) {
     return <div>{foo}{bar}</div>
   }
