@@ -2031,14 +2031,14 @@ npm install q-lint-js --save-dev
   <div ref={c => (this._div = c)} />
   ```
 
-* **要求一致性的布尔属性命名规则**。
+* **对没有一致性的布尔属性命名报警告**。
 
   eslint-plugin-react: [`boolean-prop-naming`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/boolean-prop-naming.md)
 
   正则表达式: `^(is|has)[A-Z]([A-Za-z0-9]?)+`
 
   ```js
-  // ✗ avoid
+  // ✗ warning
   var Hello = createReactClass({
     propTypes: {
       enabled: PropTypes.bool,
