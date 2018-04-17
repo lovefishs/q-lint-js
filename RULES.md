@@ -1524,12 +1524,12 @@ npm install q-lint-js --save-dev
   with (val) {...}
   ```
 
-* **禁止使用 `alert`, `prompt`, `confirm`**。
+* **使用 `alert`, `prompt`, `confirm` 报警告**。
 
   eslint: [`no-alert`](https://eslint.org/docs/rules/no-alert)
 
   ```js
-  // ✗ avoid
+  // ✗ warning
   alert("here!")
   confirm("Are you sure?")
   prompt("What's your name?", "John Doe")
@@ -1545,12 +1545,12 @@ npm install q-lint-js --save-dev
   }
   ```
 
-* **禁止使用 `console`**。
+* **使用 `console` 报警告**。
 
   eslint: [`no-console`](https://eslint.org/docs/rules/no-console)
 
   ```js
-  // ✗ avoid
+  // ✗ warning
   console.log("Log a debug level message.")
   console.warn("Log a warn level message.")
   console.error("Log an error level message.")
