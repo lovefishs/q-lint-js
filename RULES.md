@@ -1782,7 +1782,7 @@ npm install q-lint-js --save-dev
   ```
 
 * **不要使用分号**。<br/>
-  例外: 当一行代码以 `(`、`[` 开头时请在符号前加分号。
+  例外: 当一行代码以 `(`、`[`、`+`、`-`、`*`、`/`、`,`、`.`、``` 开头时请在符号前加分号。
 
   eslint: [`semi`](http://eslint.cn/docs/rules/semi)
 
@@ -1798,7 +1798,7 @@ npm install q-lint-js --save-dev
   ;[1, 2, 3].map()
   ```
 
-* **禁止使用 `(`、`[`、```作为一行的开始**。
+* **禁止使用令人困惑的多行表达式，比如 `(`、`[`、`+`、`-`、`*`、`/`、`,`、`.`、``` 作为一行的开始**。
 
   eslint: [`no-unexpected-multiline`](http://eslint.cn/docs/rules/no-unexpected-multiline)
 
