@@ -1,6 +1,7 @@
 # NodeJS #
-node_modules/
-bower_components/
+node_modules
+bower_components
+package-lock.json
 npm-debug*
 
 # IDEA #
