@@ -1,6 +1,6 @@
 {
   "name": "q-lint-js",
-  "version": "2.7.5",
+  "version": "2.7.6",
   "description": "Use JavaScript Q Style",
   "bin": "./bin/cmd.js",
   "bugs": {
