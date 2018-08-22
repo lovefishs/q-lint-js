@@ -94,18 +94,23 @@ npm install q-lint-js --save-dev
   if (condition) { ... }
   ```
 
-* **函数声明时括号与函数名间加空格**。
+* **函数圆括号之前不需要加空格**。<br/>
+  例外: 箭头函数 与 `async` 箭头函数。
 
   eslint: [`space-before-function-paren`](http://eslint.cn/docs/rules/space-before-function-paren)
 
   ```js
   // ✗ avoid
-  function name(arg) { ... }
-  run(function() { ... })
+  function name (arg) { ... }
+  run(function () { ... })
+  async() => {}
+  const testFn =() => {}
 
   // ✓ ok
   function name (arg) { ... }
   run(function () { ... })
+  async () => {}
+  const testFn = () => {}
   ```
 
 * **始终使用** === 替代 ==。
@@ -252,7 +257,7 @@ npm install q-lint-js --save-dev
     : 'www.api.com'
   var foo = 1
           + 2
-  
+
   if (someCondition
     || otherCondition) {
   }
