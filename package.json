@@ -26,9 +26,9 @@
   },
   "homepage": "https://github.com/lovefishs/q-lint-js",
   "dependencies": {
-    "babel-eslint": "8.2.6",
+    "babel-eslint": "9.0.0",
     "eslint": "5.4.0",
     "eslint-plugin-react": "7.11.1",
-    "standard-engine": "9.0.0"
+    "standard-engine": "10.0.0"
   }
 }
