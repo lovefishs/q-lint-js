@@ -1,5 +1,6 @@
 const { resolve } = require('path')
 const eslint = require('eslint')
+
 const pkg = require('./package.json')
 
 module.exports = {
@@ -10,6 +11,6 @@ module.exports = {
   cmd: 'q-lint-js',
   eslint: eslint,
   eslintConfig: {
-    configFile: resolve(__dirname, './eslintrc.json'),
+    configFile: resolve(__dirname, '.eslintrc.js'),
   },
 }
