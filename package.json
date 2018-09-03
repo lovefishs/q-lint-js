@@ -1,6 +1,6 @@
 {
   "name": "q-lint-js",
-  "version": "2.7.6",
+  "version": "3.0.0",
   "description": "Use JavaScript Q Style",
   "bin": "./bin/cmd.js",
   "bugs": {
@@ -18,7 +18,7 @@
     "eslint",
     "eslint-plugin"
   ],
-  "author": "changming.huang@woqutech.com",
+  "author": "lovefishs",
   "license": "MIT",
   "engines": {
     "node": ">= 8.0.0",
