@@ -45,8 +45,8 @@ module.exports = {
     'no-undef': [2, { typeof: true }],
     'no-multiple-empty-lines': [2, { max: 2 }],
     'operator-linebreak': [
-      2,
-      'before',
+      1,
+      'after',
       {
         overrides: {
           '?': 'ignore',
