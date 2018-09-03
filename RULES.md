@@ -2036,32 +2036,6 @@ npm install q-lint-js --save-dev
   <div ref={c => (this._div = c)} />
   ```
 
-* **对没有一致性的布尔属性命名报警告**。
-
-  eslint-plugin-react: [`boolean-prop-naming`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/boolean-prop-naming.md)
-
-  正则表达式: `^(is|has)[A-Z]([A-Za-z0-9]?)+`
-
-  ```js
-  // ✗ warning
-  var Hello = createReactClass({
-    propTypes: {
-      enabled: PropTypes.bool,
-      condition: PropTypes.bool,
-    },
-    render: function() { return <div /> }
-  })
-
-  // ✓ ok
-  var Hello = createReactClass({
-    propTypes: {
-      isEnabled: PropTypes.bool,
-      hasCondition: PropTypes.bool,
-    },
-    render: function() { return <div /> }
-  })
-  ```
-
 * **禁止 `button` 元素没有明确的 `type` 属性**。
 
   eslint-plugin-react: [`button-has-type`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/button-has-type.md)

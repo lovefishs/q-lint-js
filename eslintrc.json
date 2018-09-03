@@ -157,7 +157,6 @@
     "react/jsx-tag-spacing": ["error", { "closingSlash": "never", "beforeSelfClosing": "always", "afterOpening": "never" }],
     "react/self-closing-comp": ["error", { "component": true, "html": false }],
     "react/jsx-no-bind": ["warn", { "ignoreRefs": true, "allowBind": false, "allowArrowFunctions": false, "allowFunctions": false }],
-    "react/boolean-prop-naming": ["warn", { "rule": "^(is|has)[A-Z]([A-Za-z0-9]?)+" }],
     "react/button-has-type": ["error", { "button": true, "submit": true, "reset": true }],
     "react/destructuring-assignment": ["error", "always"],
     "react/no-access-state-in-setstate": ["error"],
